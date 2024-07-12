@@ -21,3 +21,14 @@
    ```bash
    uvicorn app:app --reload
    ```
+
+## Test
+
+### Backend
+
+1. Navigate to the `backend` directory.
+2. Activate the virtualenvironment.
+3. Run the tests:
+   ```bash
+   pytest
+   ```

@@ -6,6 +6,10 @@ aiohttp==3.9.5
 # https://github.com/tiangolo/fastapi
 fastapi==0.111.0
 
+## Test Framework
+# https://pypi.org/project/pytest/
+pytest==8.2.2
+
 ## Linter and Formatter
 # https://github.com/astral-sh/ruff
 ruff==0.5.1
