@@ -17,11 +17,7 @@
    ```bash
    pip install -r requirements.txt
    ```
-5. Run the FastAPI server:
-   ```bash
-   uvicorn app:app --reload
-   ```
-
+   
 ### Frontend
 
 1. Navigate to the `frontend` directory.
@@ -29,7 +25,20 @@
    ```bash
    npm install
    ```
-3. Run the React app:
+
+## Run
+
+### Backend
+1. Navigate to the `backend` directory.
+2. Run the FastAPI server:
+   ```bash
+   uvicorn app:app --reload
+   ```
+
+### Frontend
+
+1. Navigate to the `frontend` directory.
+2. Run the React app:
    ```bash
    npm start
    ```
@@ -52,3 +61,20 @@
    ```bash
    npm test
    ```
+
+## Implementation Details
+
+- The backend API aggregates data from two endpoints and calculates usage credits based on specific rules.
+- The frontend displays this data in a sortable table and a bar chart.
+
+## Decisions and Concessions
+
+- Simplified sorting logic for brevity.
+- Focused on core functionality due to time constraints.
+- With more time available, the credit calculations could be split into smaller functions for each condition.
+  - This would simplify unit testing as calculations could be tested in isolation.
+
+## Ambiguity
+
+- Whitespace characters, unclear whether to include them in some metric counts.
+  - Decided to not include them in unique words and palindrome checks.
