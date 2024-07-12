@@ -1,0 +1,15 @@
+## Asynchronous HTTP Client/Server
+# https://github.com/aio-libs/aiohttp
+aiohttp==3.9.5
+
+## Web Framework
+# https://github.com/tiangolo/fastapi
+fastapi==0.111.0
+
+## Linter and Formatter
+# https://github.com/astral-sh/ruff
+ruff==0.5.1
+
+## ASGI web server
+# https://www.uvicorn.org/
+uvicorn==0.30.1
