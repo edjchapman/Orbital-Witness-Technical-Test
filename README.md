@@ -22,6 +22,18 @@
    uvicorn app:app --reload
    ```
 
+### Frontend
+
+1. Navigate to the `frontend` directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the React app:
+   ```bash
+   npm start
+   ```
+
 ## Test
 
 ### Backend
@@ -31,4 +43,12 @@
 3. Run the tests:
    ```bash
    pytest
+   ```
+
+### Frontend
+
+1. Navigate to the `frontend` directory.
+2. Run the tests:
+   ```bash
+   npm test
    ```
