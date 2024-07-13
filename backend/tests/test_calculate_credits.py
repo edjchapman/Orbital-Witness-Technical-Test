@@ -1,18 +1,19 @@
+from decimal import Decimal
+
 import pytest
-from typing import Dict
 from services.calculate_credits import calculate_credits
 
 
 @pytest.mark.parametrize(
     "message, expected_credits",
     [
-        ({"message": "Hello world"}, 1.0),
-        ({"message": "a ab abc abcd abcde abcdef abcdefg abcdefgh"}, 4.05),
-        ({"message": "aei oei aei"}, 2.75),
-        ({"message": "a" * 101}, 38.500000000000036),
-        ({"message": "unique words all different"}, 2.3),
-        ({"message": "A man a plan a canal Panama"}, 7.300000000000002),
-        ({"message": ""}, 1.0),
+        ("Hello world", Decimal("1.00")),
+        ("a ab abc abcd abcde abcdef abcdefg abcdefgh", Decimal("4.05")),
+        ("aei oei aei", Decimal("2.75")),
+        ("a" * 101, Decimal("38.50")),
+        ("unique words all different", Decimal("2.30")),
+        ("A man a plan a canal Panama", Decimal("7.30")),
+        ("", Decimal("1.00")),
     ],
     ids=[
         "Simple message",
@@ -24,5 +25,5 @@ from services.calculate_credits import calculate_credits
         "Empty message",
     ],
 )
-def test_calculate_credits(message: Dict[str, str], expected_credits: float):
+def test_calculate_credits(message: str, expected_credits: Decimal):
     assert calculate_credits(message) == expected_credits

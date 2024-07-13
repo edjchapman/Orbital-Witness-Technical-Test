@@ -21,7 +21,7 @@ async def usage():
         usage_data = []
 
         for message in messages.get("messages"):
-            credits_ = calculate_credits(message)
+            credits_ = calculate_credits(message.get("message", ""))
             report_name = ""
             if "report_id" in message:
                 report = await get_report(message["report_id"])
