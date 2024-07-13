@@ -49,7 +49,7 @@ function Table({ data }) {
         {sortedData.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
-            <td>{new Date(item.timestamp).toLocaleString()}</td>
+            <td>{item.timestamp}</td>
             <td>{item.reportName || ''}</td>
             <td>{item.creditsUsed.toFixed(2)}</td>
           </tr>

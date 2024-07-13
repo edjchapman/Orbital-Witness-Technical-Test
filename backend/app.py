@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from fastapi import FastAPI, HTTPException
 from services.fetch_data import get_messages, get_report
 from services.calculate_credits import calculate_credits
@@ -29,10 +31,13 @@ async def usage():
                     report_name = report["name"]
                     credits_ = report["credit_cost"]
 
+            formatted_timestamp = datetime.fromisoformat(message["timestamp"]).strftime(
+                "%d-%m-%Y %H:%M"
+            )
             usage_data.append(
                 {
                     "id": message["id"],
-                    "timestamp": message["timestamp"],
+                    "timestamp": formatted_timestamp,
                     "reportName": report_name,
                     "creditsUsed": round(credits_, 2),
                 }
