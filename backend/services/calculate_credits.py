@@ -41,13 +41,15 @@ def calculate_credits(message: str) -> Decimal:
         credits_ += Decimal("5")
 
     # Unique word bonus
-    if len(words) == len(unique_words):
+    if len(words) > 1 and len(words) == len(unique_words):
         credits_ -= Decimal("2")
 
     # Palindrome check
     cleaned_text = "".join([t for t in text if t.isalnum()]).lower()
-    if cleaned_text == cleaned_text[::-1]:
+    if cleaned_text and cleaned_text == cleaned_text[::-1]:
         credits_ *= Decimal("2")
 
     # Ensure minimum cost is 1 credit
-    return max(Decimal("1"), credits_.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
+    return max(
+        Decimal("1.00"), credits_.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    )
