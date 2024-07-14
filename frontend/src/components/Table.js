@@ -1,30 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function Table({ data }) {
-  const [sortConfig, setSortConfig] = useState({ key: 'credits_used', direction: 'ascending' });
+function Table() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isInitialLoad = useRef(true);
 
-  const sortedData = React.useMemo(() => {
-    let sortableData = [...data];
-    if (sortConfig !== null) {
-      sortableData.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
+  const getSortConfigFromURL = () => {
+    const params = new URLSearchParams(location.search);
+    const sortCreditsUsed = params.get('sortCreditsUsed') || '';
+    const sortReportName = params.get('sortReportName') || '';
+    return { credits_used: sortCreditsUsed, report_name: sortReportName };
+  };
+
+  const [data, setData] = useState([]);
+  const [sortConfig, setSortConfig] = useState(getSortConfigFromURL);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/usage', {
+          params: {
+            sort_credits_used: sortConfig.credits_used || undefined,
+            sort_report_name: sortConfig.report_name || undefined,
+          },
+        });
+        setData(response.data.usage);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [sortConfig]);
+
+  useEffect(() => {
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
     }
-    return sortableData;
-  }, [data, sortConfig]);
+
+    const params = new URLSearchParams(location.search);
+    if (sortConfig.credits_used) {
+      params.set('sortCreditsUsed', sortConfig.credits_used);
+    } else {
+      params.delete('sortCreditsUsed');
+    }
+
+    if (sortConfig.report_name) {
+      params.set('sortReportName', sortConfig.report_name);
+    } else {
+      params.delete('sortReportName');
+    }
+
+    const newSearch = params.toString();
+    if (location.search !== `?${newSearch}`) {
+      navigate({ search: newSearch }, { replace: true });
+    }
+  }, [sortConfig, navigate, location.search]);
 
   const requestSort = key => {
-    let direction = 'ascending';
-    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-      direction = 'descending';
+    const newSortConfig = { ...sortConfig };
+    if (newSortConfig[key] === 'ascending') {
+      newSortConfig[key] = 'descending';
+    } else if (newSortConfig[key] === 'descending') {
+      newSortConfig[key] = '';
+    } else {
+      newSortConfig[key] = 'ascending';
     }
-    setSortConfig({ key, direction });
+    setSortConfig(newSortConfig);
   };
 
   return (
@@ -46,7 +91,7 @@ function Table({ data }) {
         </tr>
       </thead>
       <tbody>
-        {sortedData.map((item) => (
+        {data.map((item) => (
           <tr key={item.message_id}>
             <td>{item.message_id}</td>
             <td>{item.timestamp}</td>

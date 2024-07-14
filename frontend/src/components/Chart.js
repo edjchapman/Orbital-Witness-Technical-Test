@@ -21,8 +21,7 @@ ChartJS.register(
 
 function Chart({ data }) {
   const chartData = data.reduce((acc, item) => {
-    const date = new Date(item.timestamp).toLocaleDateString();
-    acc[date] = (acc[date] || 0) + item.credits_used;
+    acc[item.timestamp] = (acc[item.timestamp] || 0) + item.credits_used;
     return acc;
   }, {});
 

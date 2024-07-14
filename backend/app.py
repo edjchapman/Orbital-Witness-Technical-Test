@@ -1,6 +1,6 @@
 from datetime import datetime
-
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
+from typing import Optional
 from services.fetch_data import get_messages, get_report
 from services.calculate_credits import calculate_credits
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,14 +16,17 @@ app.add_middleware(
 )
 
 
-@app.get("/usage")
-async def usage():
+@app.get("/api/usage")
+async def get_usage(
+    sort_credits_used: Optional[str] = Query(None),
+    sort_report_name: Optional[str] = Query(None),
+):
     try:
         messages = await get_messages()
         usage_data = []
 
         for message in messages.get("messages"):
-            credits_ = calculate_credits(message.get("message", ""))
+            credits_ = calculate_credits(message.get("text", ""))
             report_name = ""
             if "report_id" in message:
                 report = await get_report(message["report_id"])
@@ -39,8 +42,20 @@ async def usage():
                     "message_id": message["id"],
                     "timestamp": formatted_timestamp,
                     "report_name": report_name,
-                    "credits_used": round(credits_, 2),
+                    "credits_used": credits_,
                 }
+            )
+
+        if sort_report_name:
+            usage_data.sort(
+                key=lambda x: x["report_name"],
+                reverse=(sort_report_name == "descending"),
+            )
+
+        if sort_credits_used:
+            usage_data.sort(
+                key=lambda x: x["credits_used"],
+                reverse=(sort_credits_used == "descending"),
             )
 
         return {"usage": usage_data}
