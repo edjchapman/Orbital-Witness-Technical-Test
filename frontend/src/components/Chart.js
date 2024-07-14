@@ -9,7 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import './Chart.css'; // Import the CSS file
+import './Chart.css';
 
 ChartJS.register(
   CategoryScale,
@@ -26,8 +26,9 @@ function Chart({ data }) {
     return acc;
   }, {});
 
-  const chartLabels = Object.keys(chartData);
-  const chartValues = Object.values(chartData);
+  // Ensure the chart data is sorted by timestamp
+  const chartLabels = Object.keys(chartData).sort((a, b) => new Date(a) - new Date(b));
+  const chartValues = chartLabels.map(label => chartData[label]);
 
   return (
     <div>

@@ -3,10 +3,11 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Table from './components/Table';
 import axios from 'axios';
 import Chart from './components/Chart';
-import './App.css'
+import './App.css';
 
 function App() {
   const [usageData, setUsageData] = useState([]);
+  const [chartData, setChartData] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
   const [isInitialLoad, setIsInitialLoad] = useState(true);
@@ -21,7 +22,7 @@ function App() {
   const [sortConfig, setSortConfig] = useState(getSortConfigFromURL);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTableData = async () => {
       try {
         const params = new URLSearchParams();
         if (sortConfig.credits_used) params.set('sort_credits_used', sortConfig.credits_used);
@@ -31,12 +32,26 @@ function App() {
         setUsageData(response.data.usage);
         setIsInitialLoad(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching table data:', error);
       }
     };
 
-    fetchData();
+    fetchTableData();
   }, [sortConfig]);
+
+  // Fetch data for the chart
+  useEffect(() => {
+    const fetchChartData = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/usage');
+        setChartData(response.data.usage);
+      } catch (error) {
+        console.error('Error fetching chart data:', error);
+      }
+    };
+
+    fetchChartData();
+  }, []);
 
   useEffect(() => {
     if (isInitialLoad && !location.search) {
@@ -63,12 +78,12 @@ function App() {
   };
 
   return (
-      <div className="page-container">
-        <Chart data={usageData}/>
-        <Routes>
-          <Route path="/" element={<Table data={usageData} requestSort={requestSort} sortConfig={sortConfig}/>}/>
-        </Routes>
-      </div>
+    <div className="page-container">
+      <Chart data={chartData} />
+      <Routes>
+        <Route path="/" element={<Table data={usageData} requestSort={requestSort} sortConfig={sortConfig} />} />
+      </Routes>
+    </div>
   );
 }
 
