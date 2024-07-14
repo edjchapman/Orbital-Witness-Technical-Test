@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Table({ data }) {
-  const [sortConfig, setSortConfig] = useState({ key: 'creditsUsed', direction: 'ascending' });
+  const [sortConfig, setSortConfig] = useState({ key: 'credits_used', direction: 'ascending' });
 
   const sortedData = React.useMemo(() => {
     let sortableData = [...data];
@@ -34,12 +34,12 @@ function Table({ data }) {
           <th>Message ID</th>
           <th>Timestamp</th>
           <th>
-            <button type="button" onClick={() => requestSort('reportName')}>
+            <button type="button" onClick={() => requestSort('report_name')}>
               Report Name
             </button>
           </th>
           <th>
-            <button type="button" onClick={() => requestSort('creditsUsed')}>
+            <button type="button" onClick={() => requestSort('credits_used')}>
               Credits Used
             </button>
           </th>
@@ -47,11 +47,11 @@ function Table({ data }) {
       </thead>
       <tbody>
         {sortedData.map((item) => (
-          <tr key={item.id}>
-            <td>{item.id}</td>
+          <tr key={item.message_id}>
+            <td>{item.message_id}</td>
             <td>{item.timestamp}</td>
-            <td>{item.reportName || ''}</td>
-            <td>{item.creditsUsed.toFixed(2)}</td>
+            <td>{item.report_name || ''}</td>
+            <td>{item.credits_used.toFixed(2)}</td>
           </tr>
         ))}
       </tbody>

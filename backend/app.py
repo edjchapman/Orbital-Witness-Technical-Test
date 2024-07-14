@@ -36,10 +36,10 @@ async def usage():
             )
             usage_data.append(
                 {
-                    "id": message["id"],
+                    "message_id": message["id"],
                     "timestamp": formatted_timestamp,
-                    "reportName": report_name,
-                    "creditsUsed": round(credits_, 2),
+                    "report_name": report_name,
+                    "credits_used": round(credits_, 2),
                 }
             )
 
