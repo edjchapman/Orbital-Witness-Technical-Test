@@ -43,6 +43,15 @@
    npm start
    ```
 
+## Docs
+
+### API Docs
+1. Run the backend
+2. Visit the docs:
+   ```bash
+   http://127.0.0.1:8000/redoc
+   ```
+
 ## Test
 
 ### Backend

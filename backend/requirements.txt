@@ -6,9 +6,17 @@ aiohttp==3.9.5
 # https://github.com/tiangolo/fastapi
 fastapi==0.111.0
 
+## Data validation
+# https://docs.pydantic.dev/latest/
+pydantic==2.8.2
+
 ## Test Framework
 # https://pypi.org/project/pytest/
 pytest==8.2.2
+
+## Support for coroutines as test functions
+# https://pypi.org/project/pytest-asyncio/
+pytest-asyncio==0.23.7
 
 ## Linter and Formatter
 # https://github.com/astral-sh/ruff
