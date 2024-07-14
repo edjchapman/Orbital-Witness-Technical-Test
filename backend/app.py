@@ -1,9 +1,10 @@
-from datetime import datetime
-from fastapi import FastAPI, HTTPException, Query
 from typing import Optional
-from services.fetch_data import get_messages, get_report
-from services.calculate_credits import calculate_credits
+
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+
+from services.fetch_data import get_messages
+from services.usage_messages import process_messages, sort_usage_data
 
 app = FastAPI()
 
@@ -23,40 +24,12 @@ async def get_usage(
 ):
     try:
         messages = await get_messages()
-        usage_data = []
-
-        for message in messages.get("messages"):
-            credits_ = calculate_credits(message.get("text", ""))
-            report_name = ""
-            if "report_id" in message:
-                report = await get_report(message["report_id"])
-                if report:
-                    report_name = report["name"]
-                    credits_ = report["credit_cost"]
-
-            formatted_timestamp = datetime.fromisoformat(message["timestamp"]).strftime(
-                "%d-%m-%Y %H:%M"
-            )
-            usage_data.append(
-                {
-                    "message_id": message["id"],
-                    "timestamp": formatted_timestamp,
-                    "report_name": report_name,
-                    "credits_used": credits_,
-                }
-            )
-
-        if sort_report_name:
-            usage_data.sort(
-                key=lambda x: x["report_name"],
-                reverse=(sort_report_name == "descending"),
-            )
-
-        if sort_credits_used:
-            usage_data.sort(
-                key=lambda x: x["credits_used"],
-                reverse=(sort_credits_used == "descending"),
-            )
+        usage_data = await process_messages(messages=messages.get("messages", []))
+        usage_data = sort_usage_data(
+            usage_data=usage_data,
+            sort_report_name=sort_report_name,
+            sort_credits_used=sort_credits_used,
+        )
 
         return {"usage": usage_data}
 
