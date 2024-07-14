@@ -1,0 +1,50 @@
+
+.table-container {
+  margin: 20px 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-container th,
+.table-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table-container th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #f2f2f2;
+  color: black;
+}
+
+.table-container tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-container tr:hover {
+  background-color: #ddd;
+}
+
+.table-title {
+  margin: 20px 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sort-button {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  outline: inherit;
+  display: inline-flex;
+  align-items: center;
+}
+
+.sort-arrow {
+  margin-left: 5px;
+}

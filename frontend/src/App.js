@@ -3,6 +3,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Table from './components/Table';
 import axios from 'axios';
 import Chart from './components/Chart';
+import './App.css'
 
 function App() {
   const [usageData, setUsageData] = useState([]);
@@ -62,12 +63,12 @@ function App() {
   };
 
   return (
-    <div>
-      <Chart data={usageData} />
-      <Routes>
-        <Route path="/" element={<Table data={usageData} requestSort={requestSort} sortConfig={sortConfig} />} />
-      </Routes>
-    </div>
+      <div className="page-container">
+        <Chart data={usageData}/>
+        <Routes>
+          <Route path="/" element={<Table data={usageData} requestSort={requestSort} sortConfig={sortConfig}/>}/>
+        </Routes>
+      </div>
   );
 }
 

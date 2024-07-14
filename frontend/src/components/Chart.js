@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import './Chart.css'; // Import the CSS file
 
 ChartJS.register(
   CategoryScale,
@@ -29,34 +30,37 @@ function Chart({ data }) {
   const chartValues = Object.values(chartData);
 
   return (
-    <Bar
-      data={{
-        labels: chartLabels,
-        datasets: [
-          {
-            label: 'Credits Used',
-            data: chartValues,
-            backgroundColor: 'rgba(75,192,192,1)',
-          },
-        ],
-      }}
-      options={{
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: 'Date',
+    <div>
+      <div className="chart-title">Usage Chart</div>
+      <Bar
+        data={{
+          labels: chartLabels,
+          datasets: [
+            {
+              label: 'Credits Used',
+              data: chartValues,
+              backgroundColor: 'rgba(75,192,192,1)',
+            },
+          ],
+        }}
+        options={{
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Date',
+              },
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Credits',
+              },
             },
           },
-          y: {
-            title: {
-              display: true,
-              text: 'Credits',
-            },
-          },
-        },
-      }}
-    />
+        }}
+      />
+    </div>
   );
 }
 
