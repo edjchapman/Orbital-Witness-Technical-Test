@@ -1,5 +1,7 @@
 # Orbital Witness Technical Task
 
+---
+
 ## Setup
 
 ### Backend
@@ -25,6 +27,8 @@
    ```bash
    npm install
    ```
+   
+---
 
 ## Run
 
@@ -42,22 +46,30 @@
    ```bash
    npm start
    ```
+3. Visit the frontend at:
+   ```bash
+   http://localhost:3000/
+   ```
+
+---
 
 ## Docs
 
 ### API Docs
-1. Run the backend
+1. Run the backend.
 2. Visit the docs:
    ```bash
    http://127.0.0.1:8000/redoc
    ```
+
+---
 
 ## Test
 
 ### Backend
 
 1. Navigate to the `backend` directory.
-2. Activate the virtualenvironment.
+2. Activate the virtual environment.
 3. Run the tests:
    ```bash
    pytest
@@ -71,19 +83,17 @@
    npm test
    ```
 
-## Implementation Details
+---
+
+## Notes
+
+### Implementation Details
 
 - The backend API aggregates data from two endpoints and calculates usage credits based on specific rules.
 - The frontend displays this data in a sortable table and a bar chart.
+- The frontend should be accessible at `http://localhost:3000/`
 
-## Decisions and Concessions
+### Ambiguity
 
-- Simplified sorting logic for brevity.
-- Focused on core functionality due to time constraints.
-- With more time available, the credit calculations could be split into smaller functions for each condition.
-  - This would simplify unit testing as calculations could be tested in isolation.
-
-## Ambiguity
-
-- Whitespace characters, unclear whether to include them in some metric counts.
+- Whitespace characters: It was unclear whether to include them in some metric counts.
   - Decided to not include them in unique words and palindrome checks.
