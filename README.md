@@ -1,6 +1,97 @@
 # Orbital Witness Technical Task
 
+# Option 1: Docker
+
+## Project Setup with Docker Compose
+
+## Quick Start
+
+This project uses Docker Compose for an easy setup and consistent development environments.
+Follow the steps below to get started.
+
+### Requirements
+
+- Docker
+- Docker Compose
+
+### Getting Started
+
+1. **Clone the repository**:
+
+   ```sh
+   git@github.com:edjchapman/OrbitalWitness.git
+   ```
+
+2. **Navigate to the project root directory**:
+
+   ```sh
+   cd OrbitalWitness
+   ```
+
+3. **Build and start the services**:
+
+   ```sh
+   docker-compose up --build
+   ```
+
+   This command will build and start both the frontend and backend services.
+
+4. **Access the frontend**:
+
+   Open your browser and navigate to:
+   ```sh
+   http://localhost:3000/
+   ```
+
+5. **Access the API documentation**:
+
+   Open your browser and navigate to:
+   ```sh
+   http://127.0.0.1:8000/redoc
+   ```
+   or
+   ```sh
+   http://127.0.0.1:8000/docs
+   ```
+
+### Directory Structure
+
+Below is an overview of the relevant files and their purpose:
+
+- `docker-compose.yml`: Docker Compose configuration file.
+- `frontend/Dockerfile`: Dockerfile for the React frontend.
+- `backend/Dockerfile`: Dockerfile for the FastAPI backend.
+
+### Frontend Development
+
+The React frontend is located in the `frontend` directory. 
+Any changes made to the project files will be automatically reflected in the running Docker container.
+
+### Backend Development
+
+The FastAPI backend is located in the `backend` directory. 
+Any changes made to the project files will be automatically reflected in the running Docker container.
+
+### Stopping the Services
+
+To stop the running services, use:
+
+```sh
+docker-compose down
+```
+
+This will stop and remove the containers, networks and volumes defined in the `docker-compose.yml` file.
+
+### Additional Resources
+
+- [Docker Compose Documentation](https://docs.docker.com/compose/)
+- [FastAPI Documentation](https://fastapi.tiangolo.com/)
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+
 ---
+
+# Option 2: Non-Docker
+
 
 ## Setup
 
