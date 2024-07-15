@@ -1,20 +1,18 @@
 # Orbital Witness Technical Task
 
-# Option 1: Docker
+## Usage
 
-## Project Setup with Docker Compose
+Once the setup instructions have been completed below.
 
-## Quick Start
+- [Frontend](http://127.0.0.1:3000/)
+- [API Docs](http://127.0.0.1:8000/redoc)
+- Frontend: Sort the table by credits used and/or report name by clicking the header name.
 
-This project uses Docker Compose for an easy setup and consistent development environments.
-Follow the steps below to get started.
+---
 
-### Requirements
+## Setup 
 
-- Docker
-- Docker Compose
-
-### Getting Started
+### Option 1: With Docker
 
 1. **Clone the repository**:
 
@@ -31,7 +29,7 @@ Follow the steps below to get started.
 3. **Build and start the services**:
 
    ```sh
-   docker-compose up --build
+   docker compose up --build
    ```
 
    This command will build and start both the frontend and backend services.
@@ -40,7 +38,7 @@ Follow the steps below to get started.
 
    Open your browser and navigate to:
    ```sh
-   http://localhost:3000/
+   http://127.0.0.1:3000/
    ```
 
 5. **Access the API documentation**:
@@ -53,47 +51,28 @@ Follow the steps below to get started.
    ```sh
    http://127.0.0.1:8000/docs
    ```
+   
+---
 
-### Directory Structure
+### Running the Tests
 
-Below is an overview of the relevant files and their purpose:
+```sh
+docker compose exec backend python -m pytest
+```
 
-- `docker-compose.yml`: Docker Compose configuration file.
-- `frontend/Dockerfile`: Dockerfile for the React frontend.
-- `backend/Dockerfile`: Dockerfile for the FastAPI backend.
-
-### Frontend Development
-
-The React frontend is located in the `frontend` directory. 
-Any changes made to the project files will be automatically reflected in the running Docker container.
-
-### Backend Development
-
-The FastAPI backend is located in the `backend` directory. 
-Any changes made to the project files will be automatically reflected in the running Docker container.
+---
 
 ### Stopping the Services
 
 To stop the running services, use:
 
 ```sh
-docker-compose down
+docker compose down
 ```
-
-This will stop and remove the containers, networks and volumes defined in the `docker-compose.yml` file.
-
-### Additional Resources
-
-- [Docker Compose Documentation](https://docs.docker.com/compose/)
-- [FastAPI Documentation](https://fastapi.tiangolo.com/)
-- [React Documentation](https://reactjs.org/docs/getting-started.html)
 
 ---
 
-# Option 2: Non-Docker
-
-
-## Setup
+### Option 2: Non-Docker
 
 ### Backend
 
@@ -111,11 +90,14 @@ This will stop and remove the containers, networks and volumes defined in the `d
    pip install -r requirements.txt
    ```
    
+---
+
 ### Frontend
 
 1. Navigate to the `frontend` directory.
 2. Install dependencies:
    ```bash
+   # Node Version 18+
    npm install
    ```
    
@@ -139,7 +121,7 @@ This will stop and remove the containers, networks and volumes defined in the `d
    ```
 3. Visit the frontend at:
    ```bash
-   http://localhost:3000/
+   http://127.0.0.1:3000/
    ```
 
 ---
@@ -163,7 +145,7 @@ This will stop and remove the containers, networks and volumes defined in the `d
 2. Activate the virtual environment.
 3. Run the tests:
    ```bash
-   pytest
+   python -m pytest
    ```
 
 ### Frontend
@@ -182,7 +164,7 @@ This will stop and remove the containers, networks and volumes defined in the `d
 
 - The backend API aggregates data from two endpoints and calculates usage credits based on specific rules.
 - The frontend displays this data in a sortable table and a bar chart.
-- The frontend should be accessible at `http://localhost:3000/`
+- The frontend should be accessible at `http://127.0.0.1:3000/`
 
 ### Ambiguity
 
